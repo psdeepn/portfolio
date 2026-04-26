@@ -65,7 +65,7 @@ function ProjectPreviewScene({ title, techStack, previewColor }: any) {
   );
 }
 
-export default function WarpPortal({ id, title, description, techStack, previewColor, position, rotation = [0, 0, 0] }: WarpPortalProps) {
+export default function WarpPortal({ id: _id, title, description: _description, techStack, previewColor, position, rotation = [0, 0, 0] }: WarpPortalProps) {
   const { camera } = useThree();
   const groupRef = useRef<THREE.Group>(null);
   const materialRef = useRef<THREE.ShaderMaterial>(null);

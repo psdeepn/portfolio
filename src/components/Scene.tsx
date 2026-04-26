@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/purity, @typescript-eslint/no-explicit-any */
 import { useRef, useState, useEffect, useMemo } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Sparkles, Float, MeshDistortMaterial, Environment, Stars, useScroll, Html, Text, Trail } from '@react-three/drei';
-import { EffectComposer, Bloom, ChromaticAberration, Noise, DepthOfField, Glitch } from '@react-three/postprocessing';
+import { Sparkles, Float, MeshDistortMaterial, Environment, Stars, useScroll, Trail } from '@react-three/drei';
+import { EffectComposer, Bloom, ChromaticAberration, Noise, Glitch } from '@react-three/postprocessing';
 import { BlendFunction, GlitchMode } from 'postprocessing';
 import { Physics, RigidBody, BallCollider } from '@react-three/rapier';
 import * as THREE from 'three';
@@ -39,8 +39,8 @@ const PROJECTS_DATA = [
 
 export default function Scene() {
   const { personaConfig } = usePersona();
-  const { isRecruiter } = useRecruiter();
-  const state = useThree();
+  useRecruiter();
+  useThree();
   const scroll = useScroll();
 
   const coreRef = useRef<THREE.Mesh>(null);
@@ -51,8 +51,7 @@ export default function Scene() {
   // Interaction States
   const [coreHovered, setCoreHovered] = useState(false);
   const [coreClicked, setCoreClicked] = useState(false);
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
-  const [selectedProject, setSelectedProject] = useState<number | null>(null);
+
   const [currentSection, setCurrentSection] = useState('hero');
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -217,7 +216,7 @@ export default function Scene() {
   return (
     <>
       <color attach="background" args={[stratagemActive ? '#2a2000' : '#02040a']} />
-      {!stratagemActive && <fogExp2 attach="fog" color="#0a0a2e" density={0.012} />}
+      {!stratagemActive && <fogExp2 attach="fog" args={['#0a0a2e', 0.012]} />}
       {stratagemActive && <fog attach="fog" args={['#ffd700', 5, 25]} />}
 
       <ambientLight intensity={stratagemActive ? 2 : 0.5} color={stratagemActive ? '#ff0000' : '#ffffff'} />
@@ -330,12 +329,20 @@ export default function Scene() {
 
       <Environment preset="city" />
 
-      <EffectComposer>
-        <Bloom luminanceThreshold={0.2} luminanceSmoothing={0.9} intensity={1.5} mipmapBlur />
-        <Noise opacity={0.03} />
-        <ChromaticAberration blendFunction={BlendFunction.NORMAL} offset={new THREE.Vector2(0.002, 0.002)} radialModulation={false} modulationOffset={0} />
-        {isWarping && <Glitch delay={new THREE.Vector2(0.1, 0.5)} duration={new THREE.Vector2(0.1, 0.3)} strength={new THREE.Vector2(0.3, 0.8)} mode={GlitchMode.SPORADIC} active />}
-      </EffectComposer>
+      {isWarping ? (
+        <EffectComposer>
+          <Bloom luminanceThreshold={0.2} luminanceSmoothing={0.9} intensity={1.5} mipmapBlur />
+          <Noise opacity={0.03} />
+          <ChromaticAberration blendFunction={BlendFunction.NORMAL} offset={new THREE.Vector2(0.002, 0.002)} radialModulation={false} modulationOffset={0} />
+          <Glitch delay={new THREE.Vector2(0.1, 0.5)} duration={new THREE.Vector2(0.1, 0.3)} strength={new THREE.Vector2(0.3, 0.8)} mode={GlitchMode.SPORADIC} active />
+        </EffectComposer>
+      ) : (
+        <EffectComposer>
+          <Bloom luminanceThreshold={0.2} luminanceSmoothing={0.9} intensity={1.5} mipmapBlur />
+          <Noise opacity={0.03} />
+          <ChromaticAberration blendFunction={BlendFunction.NORMAL} offset={new THREE.Vector2(0.002, 0.002)} radialModulation={false} modulationOffset={0} />
+        </EffectComposer>
+      )}
     </>
   );
 }
@@ -363,195 +370,6 @@ function CameraUpdater({ scroll, coreHovered, isWarping }: { scroll: any, target
   return null;
 }
 
-// Extracted Hologram component for isolated hover state
-function ProjectHologram({ index, data, isHovered, isSelected, anySelected, onHover, onClick }: { index: number, data: any, isHovered: boolean, isSelected: boolean, anySelected: boolean, onHover: (v: boolean) => void, onClick: () => void }) {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const targetPos = useRef(new THREE.Vector3((index - 1) * 4, 0, 0));
-  const targetRot = useRef(new THREE.Euler(0.2, (index - 1) * 0.5, 0));
-  
-  useFrame((state) => {
-    if (!meshRef.current) return;
-    
-    // Scale logic
-    let targetScale = isSelected ? 2 : (isHovered && !anySelected ? 1.2 : 1);
-    if (anySelected && !isSelected) targetScale = 0.5; // Shrink others
-    
-    meshRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
-
-    // Position and Rotation logic
-    if (isSelected) {
-      // Move exactly to camera's local space within the group (-60 offset)
-      const camLocalZ = state.camera.position.z + 60;
-      targetPos.current.set(state.camera.position.x, state.camera.position.y, camLocalZ - 4);
-      targetRot.current.set(state.camera.rotation.x, state.camera.rotation.y, state.camera.rotation.z);
-    } else {
-      // Return to original layout
-      targetPos.current.set((index - 1) * 4, (anySelected ? (Math.abs(index - 1) * -2) : 0), (anySelected ? -5 : 0));
-      targetRot.current.set(0.2, (index - 1) * 0.5, 0);
-    }
-
-    meshRef.current.position.lerp(targetPos.current, 0.08);
-    
-    // Lerp rotation manually or use quaternion
-    const currentQuat = new THREE.Quaternion().setFromEuler(meshRef.current.rotation);
-    const targetQuat = new THREE.Quaternion().setFromEuler(targetRot.current);
-    currentQuat.slerp(targetQuat, 0.08);
-    meshRef.current.rotation.setFromQuaternion(currentQuat);
-  });
-
-  return (
-    <Float speed={isSelected ? 0 : (isHovered ? 0 : 2)} rotationIntensity={isSelected ? 0 : (isHovered ? 0 : 0.2)} floatIntensity={isSelected ? 0 : (isHovered ? 0 : 0.5)}>
-      <mesh 
-        ref={meshRef as any}
-        onPointerOver={() => { onHover(true); document.body.style.cursor = 'pointer'; }}
-        onPointerOut={() => { onHover(false); document.body.style.cursor = 'default'; }}
-        onClick={(e) => { e.stopPropagation(); onClick(); }}
-      >
-        <planeGeometry args={[2.5, 3.5]} />
-        <meshPhysicalMaterial 
-          color={(isHovered || isSelected) ? "#00f0ff" : "#02040a"} 
-          transmission={(isHovered || isSelected) ? 0.2 : 0.9} 
-          opacity={anySelected && !isSelected ? 0.3 : 1} 
-          transparent 
-          roughness={0.1}
-          metalness={0.8}
-          clearcoat={1}
-          emissive={(isHovered || isSelected) ? "#00f0ff" : "#000000"}
-          emissiveIntensity={(isHovered || isSelected) ? 0.2 : 0}
-        />
-        <lineSegments>
-          <edgesGeometry args={[new THREE.PlaneGeometry(2.5, 3.5)]} />
-          <lineBasicMaterial color={(isHovered || isSelected) ? "#ffffff" : "#00f0ff"} transparent opacity={anySelected && !isSelected ? 0.1 : 1} />
-        </lineSegments>
-
-        {/* 3D Title on the plane (Only show when not fully expanded, or maybe always) */}
-        {!isSelected && (
-          <Text 
-            position={[0, -1, 0.1]} 
-            fontSize={0.2} 
-            color="#ffffff"
-            anchorX="center"
-            anchorY="middle"
-            maxWidth={2}
-            textAlign="center"
-          >
-            {data.title.split(': ')[1] || data.title}
-          </Text>
-        )}
-
-        {/* Dynamic 3D Showcase object */}
-        {index === 0 && <MiniVRHeadset />}
-        {index === 1 && <MiniGamingMonitor />}
-        {index === 2 && <MiniGamingKeyboard />}
-
-        {/* HTML Detail Modal when selected */}
-        {isSelected && (
-          <Html transform position={[0, 0, 0.2]} distanceFactor={1.5}>
-            <div className="hologram-modal glass-panel">
-              <button className="close-btn" onClick={(e) => { e.stopPropagation(); onClick(); }}>×</button>
-              <h2>{data.title}</h2>
-              <p className="subtitle text-gradient-cyan">{data.subtitle}</p>
-              <p className="desc">{data.description}</p>
-              <div className="tech-stack">
-                {data.tech.map((t: string) => <span key={t} className="tech-tag">{t}</span>)}
-              </div>
-            </div>
-          </Html>
-        )}
-      </mesh>
-    </Float>
-  );
-}
-
-// -- GAMING PERIPHERALS 3D MODELS --
-
-function MiniVRHeadset() {
-  const ref = useRef<THREE.Group>(null);
-  useFrame((state) => { if(ref.current) ref.current.rotation.y = state.clock.elapsedTime * 0.5; });
-  return (
-    <group ref={ref as any} scale={0.4} position={[0, 0.5, 0.5]}>
-      <mesh position={[0, 0, 0]}>
-        <boxGeometry args={[3, 1.5, 1]} />
-        <meshPhysicalMaterial color="#02040a" metalness={0.9} roughness={0.1} clearcoat={1} />
-        <lineSegments>
-          <edgesGeometry args={[new THREE.BoxGeometry(3, 1.5, 1)]} />
-          <lineBasicMaterial color="#00f0ff" />
-        </lineSegments>
-      </mesh>
-      <mesh position={[0, 0, -1.5]} rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[1.5, 0.2, 16, 50]} />
-        <meshStandardMaterial color="#333" />
-      </mesh>
-      <mesh position={[-0.6, 0, 0.55]} rotation={[Math.PI / 2, 0, 0]}>
-        <cylinderGeometry args={[0.4, 0.4, 0.1, 32]} />
-        <meshStandardMaterial color="#00f0ff" emissive="#00f0ff" emissiveIntensity={2} />
-      </mesh>
-      <mesh position={[0.6, 0, 0.55]} rotation={[Math.PI / 2, 0, 0]}>
-        <cylinderGeometry args={[0.4, 0.4, 0.1, 32]} />
-        <meshStandardMaterial color="#00f0ff" emissive="#00f0ff" emissiveIntensity={2} />
-      </mesh>
-    </group>
-  );
-}
-
-function MiniGamingMonitor() {
-  const ref = useRef<THREE.Group>(null);
-  useFrame((state) => { if(ref.current) ref.current.rotation.y = state.clock.elapsedTime * 0.5; });
-  return (
-    <group ref={ref as any} scale={0.5} position={[0, 0, 0.5]}>
-      <mesh position={[0, 1, 0]}>
-        <boxGeometry args={[4, 2.5, 0.2]} />
-        <meshPhysicalMaterial color="#02040a" metalness={0.8} roughness={0.2} />
-        <lineSegments>
-          <edgesGeometry args={[new THREE.BoxGeometry(4, 2.5, 0.2)]} />
-          <lineBasicMaterial color="#f5c051" />
-        </lineSegments>
-      </mesh>
-      <mesh position={[0, 1, 0.11]}>
-        <planeGeometry args={[3.8, 2.3]} />
-        <meshBasicMaterial color="#00f0ff" transparent opacity={0.2} />
-      </mesh>
-      <mesh position={[0, 0, -0.2]}>
-        <cylinderGeometry args={[0.1, 0.1, 1, 16]} />
-        <meshStandardMaterial color="#333" />
-      </mesh>
-      <mesh position={[0, -0.5, 0]}>
-        <boxGeometry args={[1.5, 0.1, 1]} />
-        <meshStandardMaterial color="#222" />
-      </mesh>
-    </group>
-  );
-}
-
-function MiniGamingKeyboard() {
-  const ref = useRef<THREE.Group>(null);
-  useFrame((state) => { if(ref.current) ref.current.rotation.y = state.clock.elapsedTime * 0.5; });
-  return (
-    <group ref={ref as any} scale={0.5} position={[0, 0.5, 0.5]} rotation={[0.4, 0, 0]}>
-      <mesh position={[0, 0, 0]}>
-        <boxGeometry args={[4, 0.2, 1.5]} />
-        <meshStandardMaterial color="#111" />
-      </mesh>
-      <group position={[-1.8, 0.1, -0.6]}>
-        {Array.from({length: 40}).map((_, i) => (
-          <mesh key={i} position={[(i % 10) * 0.4, 0.05, Math.floor(i / 10) * 0.4]}>
-            <boxGeometry args={[0.3, 0.1, 0.3]} />
-            <meshStandardMaterial color="#02040a" emissive={i % 3 === 0 ? "#00f0ff" : (i % 2 === 0 ? "#ff00ff" : "#f5c051")} emissiveIntensity={1} />
-          </mesh>
-        ))}
-      </group>
-      {/* Mini mouse */}
-      <mesh position={[2.5, 0.1, 0]}>
-        <boxGeometry args={[0.6, 0.3, 1]} />
-        <meshStandardMaterial color="#222" />
-        <lineSegments>
-          <edgesGeometry args={[new THREE.BoxGeometry(0.6, 0.3, 1)]} />
-          <lineBasicMaterial color="#00f0ff" />
-        </lineSegments>
-      </mesh>
-    </group>
-  );
-}
 
 // -- NEW PROFILE 3D ELEMENTS --
 

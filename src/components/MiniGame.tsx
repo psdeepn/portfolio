@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Html, Sparkles } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';
@@ -50,7 +50,7 @@ export default function MiniGame({ isActive, onExit }: { isActive: boolean; onEx
     setTargets(newTargets);
   };
 
-  const handleShoot = (id: string, position: THREE.Vector3) => {
+  const handleShoot = (id: string, _position: THREE.Vector3) => {
     if (gameOver || !isActive) return;
     
     sounds.playShootSound();
@@ -107,7 +107,7 @@ function GameTarget({ target, onHit, gameOver }: { target: Target; onHit: (id: s
   const [destroyed, setDestroyed] = useState(false);
   const meshRef = useRef<THREE.Mesh>(null);
   
-  useFrame((state) => {
+  useFrame((_state) => {
     if (meshRef.current && !destroyed) {
       meshRef.current.rotation.x += 0.01;
       meshRef.current.rotation.y += 0.02;

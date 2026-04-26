@@ -1,5 +1,5 @@
 import { useRef, useEffect, useMemo, useState } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import { Text, Line } from '@react-three/drei';
 import * as THREE from 'three';
 // @ts-ignore
@@ -49,7 +49,7 @@ const CATEGORY_COLORS: Record<string, string> = {
 
 export default function SkillConstellation({ position }: { position: [number, number, number] }) {
   const meshRef = useRef<THREE.InstancedMesh>(null);
-  const { camera } = useThree();
+
   const [hoveredNode, setHoveredNode] = useState<number | null>(null);
 
   // Initialize Force layout
@@ -80,7 +80,7 @@ export default function SkillConstellation({ position }: { position: [number, nu
   }, []);
 
   const dummy = useMemo(() => new THREE.Object3D(), []);
-  const targetScales = useRef<number[]>(nodes.map(() => 1));
+
   const currentScales = useRef<number[]>(nodes.map(() => 1));
 
   useEffect(() => {
@@ -147,7 +147,6 @@ export default function SkillConstellation({ position }: { position: [number, nu
   const handleClick = (e: any) => {
     e.stopPropagation();
     if (e.instanceId !== undefined) {
-      const node = nodes[e.instanceId];
       // Lerp camera target towards the clicked cluster center
       sounds.init();
       sounds.playClickSound();
@@ -196,7 +195,7 @@ export default function SkillConstellation({ position }: { position: [number, nu
           color={hoveredNode === i ? '#ffffff' : CATEGORY_COLORS[node.category]}
           anchorX="center"
           anchorY="middle"
-          occlude
+
         >
           {node.id}
           {hoveredNode === i ? `\n${(node.prof * 100).toFixed(0)}%` : ''}

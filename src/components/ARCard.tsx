@@ -1,9 +1,8 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import QRCode from 'qrcode';
 
 export default function ARCard() {
   const [qrCodeUrl, setQrCodeUrl] = useState('');
-  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     // Generate QR code pointing to the ar.html

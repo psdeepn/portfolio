@@ -121,7 +121,6 @@ export default function GitHubHeatmap({ position }: { position: [number, number,
       // Target height based on count
       const targetHeight = Math.max(0.1, Math.min(day.count * 0.2, 2.0));
       // Stagger animation based on column
-      const delay = day.col * 0.05;
       
       // We don't have exact time here easily without state.clock, just lerp continuously
       currentHeights.current[i] = THREE.MathUtils.lerp(currentHeights.current[i], targetHeight, 0.05);

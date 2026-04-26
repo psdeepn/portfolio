@@ -1,6 +1,5 @@
 import { useGhostCursors } from '../hooks/useGhostCursors';
 import { Trail } from '@react-three/drei';
-import * as THREE from 'three';
 
 export default function GhostCursors({ currentSection }: { currentSection: string }) {
   const { ghosts } = useGhostCursors(currentSection);
