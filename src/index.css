@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  --color-bg-deep: #02040a;
+  --color-bg-surface: rgba(10, 15, 30, 0.4);
+  --color-primary-text: #f0f4f8;
+  --color-secondary-text: #94a3b8;
+  --color-accent-cyan: #00f0ff;
+  --color-accent-gold: #f5c051;
+  --color-border: rgba(255, 255, 255, 0.08);
+  
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  
+  --glass-bg: rgba(255, 255, 255, 0.02);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.05);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --glass-blur: blur(12px);
+  
+  --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  background-color: var(--color-bg-deep);
+  color: var(--color-primary-text);
+  font-family: var(--font-body);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hide scrollbar for a cleaner look */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-deep);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-cyan);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px 0 rgba(0, 240, 255, 0.1);
+  border-color: rgba(0, 240, 255, 0.3);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-cyan {
+  background: linear-gradient(135deg, var(--color-accent-cyan) 0%, #0077ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, var(--color-accent-gold) 0%, #ff8c00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Premium Button */
+.btn-premium {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--color-primary-text);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 30px;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+  backdrop-filter: blur(10px);
+}
+
+.btn-premium::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: all 0.6s ease;
+}
+
+.btn-premium:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-accent-cyan);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.btn-premium:hover::before {
+  left: 100%;
+}
+
+.btn-primary {
+  background: rgba(0, 240, 255, 0.1);
+  border-color: rgba(0, 240, 255, 0.3);
+  color: var(--color-accent-cyan);
+}
+
+.btn-primary:hover {
+  background: rgba(0, 240, 255, 0.2);
+}
+
+/* Layout Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: 100px 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 10;
+}
+
+.canvas-container {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none; /* Let clicks pass through to HTML when needed */
+}
+
+.content-overlay {
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+/* Helldivers Easter Egg UI Overrides */
+body.stratagem-active .glass-panel {
+  background: rgba(255, 215, 0, 0.1);
+  border-color: #ffd700;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+}
+
+body.stratagem-active .text-gradient-cyan,
+body.stratagem-active .text-gradient,
+body.stratagem-active h1, 
+body.stratagem-active h2, 
+body.stratagem-active h3 {
+  background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #ffd700;
+}
+
+body.stratagem-active .btn-premium {
+  border-color: #ffd700;
+  color: #ffd700;
+}
+
+body.stratagem-active .btn-premium:hover {
+  background: rgba(255, 215, 0, 0.2);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+/* Hologram Modal Overlay */
+.hologram-modal {
+  width: 400px;
+  padding: 30px;
+  background: rgba(2, 4, 10, 0.85);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 0 40px rgba(0, 240, 255, 0.15);
+  color: #fff;
+  position: relative;
+  backdrop-filter: blur(20px);
+}
+
+.hologram-modal .close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.hologram-modal .close-btn:hover {
+  color: #00f0ff;
+  transform: scale(1.1);
+}
+
+.hologram-modal h2 {
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+.hologram-modal .subtitle {
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.hologram-modal .desc {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #c4d2e0;
+  margin-bottom: 20px;
+}
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tech-tag {
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  color: #00f0ff;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}

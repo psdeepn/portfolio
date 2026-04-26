@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>AR Business Card - Sai Deepak</title>
+    <!-- A-Frame and AR.js -->
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  </head>
+  <body style="margin: 0; overflow: hidden;">
+    <a-scene
+      embedded
+      arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
+    >
+      <!-- Using hiro marker for simplicity, can be customized later -->
+      <a-marker preset="hiro">
+        <a-entity position="0 0.5 0" rotation="-90 0 0">
+          <!-- Business Card Background -->
+          <a-plane width="3" height="2" color="#02040a" material="opacity: 0.9; transparent: true"></a-plane>
+          
+          <!-- Border -->
+          <a-plane width="3.1" height="2.1" position="0 0 -0.01" color="#00f0ff"></a-plane>
+          
+          <!-- Text Elements -->
+          <a-text value="SAI DEEPAK" position="-1.3 0.6 0.01" width="6" color="#00f0ff" font="kelsonsans"></a-text>
+          <a-text value="XR & AI Systems Architect" position="-1.3 0.2 0.01" width="3" color="#ffffff"></a-text>
+          
+          <a-text value="> 6+ Years Experience" position="-1.3 -0.2 0.01" width="2" color="#f5c051"></a-text>
+          <a-text value="> Unity | Unreal | WebXR | AI" position="-1.3 -0.5 0.01" width="2" color="#f5c051"></a-text>
+          <a-text value="> Ready for Global Deployment" position="-1.3 -0.8 0.01" width="2" color="#f5c051"></a-text>
+          
+          <!-- Holographic Cube Decoration -->
+          <a-box position="1 0 0.5" scale="0.5 0.5 0.5" material="color: #00f0ff; wireframe: true" animation="property: rotation; to: 0 360 0; loop: true; dur: 5000"></a-box>
+        </a-entity>
+      </a-marker>
+      
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>

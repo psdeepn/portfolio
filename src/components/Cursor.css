@@ -1,0 +1,75 @@
+.cursor-dot {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-accent-cyan);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  transition: width 0.2s, height 0.2s;
+  box-shadow: 0 0 10px var(--color-accent-cyan);
+}
+
+.cursor-dot.clicked {
+  width: 12px;
+  height: 12px;
+  background-color: var(--color-accent-gold);
+  box-shadow: 0 0 15px var(--color-accent-gold);
+}
+
+.cursor-ring {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9998;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cursor-ring.hovered {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: rgba(0, 240, 255, 0.05);
+  backdrop-filter: blur(2px);
+}
+
+.cursor-brackets {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.cursor-ring.hovered .cursor-brackets {
+  opacity: 1;
+}
+
+/* Important: Make interactive elements hide default cursor too, since we added it to body */
+a, button, input, textarea, select {
+  cursor: none !important;
+}
+
+.cursor-trail-dot {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: #00f0ff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff;
+}
+

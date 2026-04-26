@@ -1,0 +1,87 @@
+.terminal-overlay {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 500px;
+  max-width: 90vw;
+  height: 350px;
+  background: rgba(2, 4, 10, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  border-radius: 8px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 240, 255, 0.1);
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.terminal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background: rgba(0, 240, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+}
+
+.terminal-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--color-accent-cyan);
+  font-weight: bold;
+}
+
+.close-btn {
+  color: var(--color-secondary-text);
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
+  color: #ff4757;
+}
+
+.terminal-body {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  font-size: 0.9rem;
+}
+
+.terminal-line {
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.terminal-line.output {
+  color: var(--color-primary-text);
+}
+
+.terminal-line.input {
+  color: var(--color-accent-gold);
+}
+
+.terminal-input-line {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.prompt {
+  color: var(--color-accent-cyan);
+  margin-right: 8px;
+  font-weight: bold;
+}
+
+.terminal-input-line input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--color-primary-text);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+}
