@@ -3,17 +3,48 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AR Business Card - Sai Deepak</title>
-    <!-- A-Frame and AR.js -->
-    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <!-- A-Frame and AR.js - using stable CDN versions -->
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js@3.4.5/aframe/build/aframe-ar.js"></script>
+    <style>
+      body { margin: 0; overflow: hidden; }
+      .loading-overlay {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: #02040a;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #00f0ff;
+        font-family: 'Courier New', monospace;
+        z-index: 9999;
+        transition: opacity 0.5s;
+      }
+      .loading-overlay.hidden { opacity: 0; pointer-events: none; }
+      .loading-text { font-size: 18px; margin-bottom: 10px; }
+      .loading-hint { font-size: 14px; color: #94a3b8; text-align: center; line-height: 1.6; }
+    </style>
   </head>
-  <body style="margin: 0; overflow: hidden;">
+  <body>
+    <div class="loading-overlay" id="loading">
+      <p class="loading-text">> INITIALIZING AR MODULE...</p>
+      <p class="loading-hint">
+        Allow camera access when prompted.<br/>
+        Point your camera at a Hiro marker.
+      </p>
+    </div>
+
     <a-scene
       embedded
       arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
+      vr-mode-ui="enabled: false"
+      renderer="logarithmicDepthBuffer: true; antialias: true;"
     >
-      <!-- Using hiro marker for simplicity, can be customized later -->
+      <!-- Using hiro marker -->
       <a-marker preset="hiro">
         <a-entity position="0 0.5 0" rotation="-90 0 0">
           <!-- Business Card Background -->
@@ -37,5 +68,21 @@
       
       <a-entity camera></a-entity>
     </a-scene>
+
+    <script>
+      // Hide loading overlay once scene is loaded
+      const scene = document.querySelector('a-scene');
+      if (scene) {
+        scene.addEventListener('loaded', function() {
+          setTimeout(function() {
+            document.getElementById('loading').classList.add('hidden');
+          }, 1500);
+        });
+        // Fallback - hide after 5 seconds regardless
+        setTimeout(function() {
+          document.getElementById('loading').classList.add('hidden');
+        }, 5000);
+      }
+    </script>
   </body>
 </html>

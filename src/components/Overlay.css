@@ -98,6 +98,17 @@
   border-left: 4px solid var(--color-accent-cyan);
 }
 
+/* Solid opaque background so text remains readable over 3D scene */
+.about-card-solid {
+  background: rgba(2, 4, 10, 0.92) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.about-card-solid:hover {
+  background: rgba(2, 4, 10, 0.95) !important;
+}
+
 .card-header {
   display: flex;
   align-items: center;
@@ -177,6 +188,9 @@
   margin-bottom: 40px;
   padding: 30px;
   margin-left: 60px;
+  background: rgba(2, 4, 10, 0.9) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .timeline-marker {
@@ -216,6 +230,89 @@
   line-height: 1.6;
 }
 
+/* Role tag badge */
+.role-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-accent-cyan);
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  padding: 2px 10px;
+  border-radius: 20px;
+  vertical-align: middle;
+  margin-left: 8px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Timeline bullet points */
+.timeline-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 20px 0;
+}
+
+.timeline-bullets li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 8px;
+  color: var(--color-secondary-text);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.timeline-bullets li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--color-accent-cyan);
+  font-size: 0.9rem;
+}
+
+/* Key Projects section */
+.key-projects {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.key-projects-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-accent-gold);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.project-entry {
+  margin-bottom: 16px;
+  padding-left: 16px;
+  border-left: 2px solid rgba(0, 240, 255, 0.2);
+}
+
+.project-entry:last-child {
+  margin-bottom: 0;
+}
+
+.project-entry h6 {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-primary-text);
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+
+.project-entry p {
+  font-size: 0.9rem;
+  color: var(--color-secondary-text);
+  line-height: 1.6;
+  margin: 0;
+}
+
 /* Radar Scanner */
 .radar-scanner {
   max-width: 600px;
@@ -224,6 +321,9 @@
   text-align: center;
   border: 1px solid rgba(0, 240, 255, 0.3);
   box-shadow: 0 0 50px rgba(0, 240, 255, 0.1);
+  background: rgba(2, 4, 10, 0.92) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .radar-header {

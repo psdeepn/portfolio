@@ -42,7 +42,7 @@ const Overlay = ({ onOpenAI }: OverlayProps) => {
           </div>
           <div style={{ display: 'flex', gap: '20px' }}>
             <a href="#" style={{ color: '#fff', textDecoration: 'none', fontSize: '14px', fontWeight: 600 }}>RESUME.PDF</a>
-            <a href="#" style={{ color: '#fff', textDecoration: 'none', fontSize: '14px', fontWeight: 600 }}>LINKEDIN</a>
+            <a href="https://www.linkedin.com/in/psdeepn/" target="_blank" rel="noopener noreferrer" style={{ color: '#fff', textDecoration: 'none', fontSize: '14px', fontWeight: 600 }}>LINKEDIN</a>
             <a href="#" style={{ color: '#fff', textDecoration: 'none', fontSize: '14px', fontWeight: 600 }}>GITHUB</a>
           </div>
         </div>
@@ -104,7 +104,7 @@ const Overlay = ({ onOpenAI }: OverlayProps) => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8 }}
-              className="glass-panel about-card"
+              className="glass-panel about-card about-card-solid"
             >
               <div className="card-header">
                 <BrainCircuit className="accent-icon" />
@@ -159,10 +159,36 @@ const Overlay = ({ onOpenAI }: OverlayProps) => {
                 >
                   <div className="timeline-marker"></div>
                   <div className="timeline-content">
-                    <h3>Senior XR Engineer</h3>
-                    <h4>Tech Mahindra (Haleon Project)</h4>
-                    <span className="timeline-date">Present</span>
-                    <p>Architecting high-end enterprise XR training and immersive retail systems. Bridging physical hardware with scalable digital solutions.</p>
+                    <h3>Senior XR Developer <span className="role-tag">Associate</span></h3>
+                    <h4>Tech Mahindra</h4>
+                    <span className="timeline-date">2022 - Present</span>
+                    <ul className="timeline-bullets">
+                      <li>Built and deployed interactive XR applications for healthcare and retail use cases</li>
+                      <li>Developed real-time 3D systems using Unity for training, simulations, and product visualization</li>
+                      <li>Optimized performance, improving responsiveness and reducing load times across devices</li>
+                      <li>Designed responsive UI systems adaptable to multiple screen sizes and resolutions</li>
+                      <li>Delivered WebGL applications with smooth performance and optimized asset pipelines</li>
+                      <li>Collaborated with cross-functional teams to deliver production-grade applications</li>
+                    </ul>
+
+                    <div className="key-projects">
+                      <h5 className="key-projects-title">Key Projects</h5>
+                      
+                      <div className="project-entry">
+                        <h6>Medical Training Module</h6>
+                        <p>Developed an interactive 3D medical experience showcasing real-time simulations and user interaction. Focused on clarity, usability, and performance for training environments.</p>
+                      </div>
+
+                      <div className="project-entry">
+                        <h6>Retail Product Experience (WebGL)</h6>
+                        <p>Built an immersive product visualization experience with interactive UI and smooth navigation, optimized for web deployment across devices.</p>
+                      </div>
+
+                      <div className="project-entry">
+                        <h6>Interactive UI System</h6>
+                        <p>Designed reusable UI components with animations, transitions, and responsive layouts for consistent user experience across XR and WebGL platforms.</p>
+                      </div>
+                    </div>
                   </div>
                 </motion.div>
 
@@ -175,10 +201,16 @@ const Overlay = ({ onOpenAI }: OverlayProps) => {
                 >
                   <div className="timeline-marker"></div>
                   <div className="timeline-content">
-                    <h3>Immersive Systems Developer</h3>
-                    <h4>Previous Agency</h4>
+                    <h3>Games Developer</h3>
+                    <h4>7Seas Entertainment</h4>
                     <span className="timeline-date">2019 - 2022</span>
-                    <p>Developed WebXR applications, interactive simulations, and integrated AI-driven procedural pipelines.</p>
+                    <ul className="timeline-bullets">
+                      <li>Developed Android & iOS games using Unity</li>
+                      <li>Built gameplay systems, UI/UX, and core mechanics</li>
+                      <li>Implemented monetization systems including ad integrations</li>
+                      <li>Worked on AR/VR prototypes and interactive experiences</li>
+                      <li>Contributed across full product lifecycle from prototyping to release</li>
+                    </ul>
                   </div>
                 </motion.div>
               </div>
@@ -208,15 +240,15 @@ const Overlay = ({ onOpenAI }: OverlayProps) => {
                 <div className="match-details">
                   <div className="match-row">
                     <ShieldCheck size={16} color="#00f0ff" />
-                    <span>Senior-level XR Architecture (Unity/Unreal)</span>
+                    <span>Senior XR Developer — Unity</span>
                   </div>
                   <div className="match-row">
                     <ShieldCheck size={16} color="#00f0ff" />
-                    <span>AI Systems & LLM Integration</span>
+                    <span>AI System & LLM</span>
                   </div>
                   <div className="match-row">
                     <ShieldCheck size={16} color="#00f0ff" />
-                    <span>Ready for Relocation (Aus, Can, Ger, Sg)</span>
+                    <span>Ready to Relocate</span>
                   </div>
                 </div>
               </div>
@@ -246,13 +278,17 @@ const Overlay = ({ onOpenAI }: OverlayProps) => {
             <p className="contact-subtitle">Currently interviewing for global opportunities.</p>
             
             <div className="contact-links">
-              <a href="#" className="contact-link glass-panel">
+              <a href="https://www.linkedin.com/in/psdeepn/" target="_blank" rel="noopener noreferrer" className="contact-link glass-panel">
                 <Terminal size={18} />
                 LinkedIn
               </a>
-              <a href="#" className="contact-link glass-panel">
+              <a href="mailto:psdeepn@gmail.com" className="contact-link glass-panel">
                 <Globe2 size={18} />
-                Email Secure Channel
+                psdeepn@gmail.com
+              </a>
+              <a href="mailto:psdeepn@outlook.com" className="contact-link glass-panel">
+                <Globe2 size={18} />
+                psdeepn@outlook.com
               </a>
             </div>
             

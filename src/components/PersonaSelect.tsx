@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Briefcase, Users, Eye, ArrowRight } from 'lucide-react';
+import { Briefcase, Eye, ArrowRight } from 'lucide-react';
 import { usePersona, type PersonaType } from '../context/PersonaContext';
 import { useRecruiter } from '../context/RecruiterContext';
 import { sounds } from '../utils/soundEffects';
@@ -34,8 +34,8 @@ export default function PersonaSelect({ onComplete }: { onComplete: () => void }
         transition={{ duration: 0.8 }}
         style={{ textAlign: 'center', marginBottom: '60px' }}
       >
-        <h1 style={{ fontSize: '3rem', fontWeight: 700, margin: '0 0 10px 0', background: 'linear-gradient(90deg, #fff, #00f0ff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>INITIALIZE CONNECTION</h1>
-        <p style={{ color: '#94a3b8', fontSize: '1.2rem', margin: 0, letterSpacing: '2px' }}>SELECT YOUR VIEWPORT PROTOCOL</p>
+        <h1 style={{ fontSize: '3rem', fontWeight: 700, margin: '0 0 10px 0', background: 'linear-gradient(90deg, #fff, #00f0ff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>SELECT VIEWPORT</h1>
+        <p style={{ color: '#94a3b8', fontSize: '1.2rem', margin: 0, letterSpacing: '2px' }}>WHO ARE YOU?</p>
       </motion.div>
 
       <div style={{ display: 'flex', gap: '30px', flexWrap: 'wrap', justifyContent: 'center', padding: '0 20px' }}>
@@ -45,16 +45,6 @@ export default function PersonaSelect({ onComplete }: { onComplete: () => void }
           title="RECRUITER / HIRING"
           description="Direct access to ROI, technical stack mapping, and structured career timeline. Disables gamification."
           color="#f5c051"
-          hovered={hovered}
-          onHover={handleHover}
-          onSelect={handleSelect}
-        />
-        <PersonaCard
-          type="collaborator"
-          icon={<Users size={32} />}
-          title="COLLABORATOR"
-          description="Focuses on architecture, system design, and deep technical methodologies. Interactive mode enabled."
-          color="#00f0ff"
           hovered={hovered}
           onHover={handleHover}
           onSelect={handleSelect}
@@ -86,7 +76,7 @@ function PersonaCard({ type, icon, title, description, color, hovered, onHover, 
       onMouseLeave={() => onHover(null)}
       onClick={() => onSelect(type)}
       style={{
-        width: '300px',
+        width: '320px',
         background: isHovered ? 'rgba(255, 255, 255, 0.05)' : 'rgba(2, 4, 10, 0.8)',
         border: `1px solid ${isHovered ? color : 'rgba(255, 255, 255, 0.1)'}`,
         borderRadius: '12px',

@@ -455,7 +455,7 @@ function XRHeadset() {
             <meshPhysicalMaterial color="#02040a" metalness={0.9} roughness={0.1} clearcoat={1} />
             <lineSegments>
               <edgesGeometry args={[new THREE.BoxGeometry(3, 1.5, 1)]} />
-              <lineBasicMaterial color="#00f0ff" />
+              <lineBasicMaterial color="#00f0ff" transparent opacity={0.3} />
             </lineSegments>
           </mesh>
           {/* Strap/Halo */}
@@ -463,14 +463,14 @@ function XRHeadset() {
             <torusGeometry args={[1.5, 0.2, 16, 50]} />
             <meshStandardMaterial color="#333" />
           </mesh>
-          {/* Lenses */}
+          {/* Lenses - reduced glow */}
           <mesh position={[-0.6, 0, 0.55]} rotation={[Math.PI / 2, 0, 0]}>
             <cylinderGeometry args={[0.4, 0.4, 0.1, 32]} />
-            <meshStandardMaterial color="#00f0ff" emissive="#00f0ff" emissiveIntensity={2} />
+            <meshStandardMaterial color="#00f0ff" emissive="#00f0ff" emissiveIntensity={0.3} transparent opacity={0.6} />
           </mesh>
           <mesh position={[0.6, 0, 0.55]} rotation={[Math.PI / 2, 0, 0]}>
             <cylinderGeometry args={[0.4, 0.4, 0.1, 32]} />
-            <meshStandardMaterial color="#00f0ff" emissive="#00f0ff" emissiveIntensity={2} />
+            <meshStandardMaterial color="#00f0ff" emissive="#00f0ff" emissiveIntensity={0.3} transparent opacity={0.6} />
           </mesh>
         </group>
       </Float>

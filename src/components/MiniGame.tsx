@@ -74,19 +74,19 @@ export default function MiniGame({ isActive, onExit }: { isActive: boolean; onEx
 
   return (
     <>
-      <Html fullscreen zIndexRange={[100, 0]} style={{ pointerEvents: 'none' }}>
-        <div className="minigame-hud" style={{ position: 'absolute', top: '100px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '40px', fontFamily: 'monospace', color: '#00f0ff', fontSize: '24px', textShadow: '0 0 10px #00f0ff', pointerEvents: 'none' }}>
+      <Html fullscreen zIndexRange={[99999, 0]} style={{ pointerEvents: 'none' }}>
+        <div className="minigame-hud" style={{ position: 'fixed', top: '100px', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '40px', fontFamily: 'monospace', color: '#00f0ff', fontSize: '24px', textShadow: '0 0 10px #00f0ff', pointerEvents: 'none', zIndex: 99999 }}>
           <div>SCORE: {score}</div>
           <div>TIME: {timeLeft}s</div>
         </div>
         
         {/* Crosshair */}
-        <div style={{ position: 'absolute', top: '50%', left: '50%', width: '20px', height: '20px', border: '2px solid rgba(0, 240, 255, 0.5)', borderRadius: '50%', transform: 'translate(-50%, -50%)', pointerEvents: 'none' }}>
+        <div style={{ position: 'fixed', top: '50%', left: '50%', width: '20px', height: '20px', border: '2px solid rgba(0, 240, 255, 0.5)', borderRadius: '50%', transform: 'translate(-50%, -50%)', pointerEvents: 'none', zIndex: 99999 }}>
           <div style={{ position: 'absolute', top: '50%', left: '50%', width: '4px', height: '4px', backgroundColor: '#00f0ff', borderRadius: '50%', transform: 'translate(-50%, -50%)' }} />
         </div>
 
         {gameOver && (
-          <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', backgroundColor: 'rgba(2, 4, 10, 0.9)', padding: '40px', border: '1px solid #00f0ff', borderRadius: '10px', pointerEvents: 'auto' }}>
+          <div style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', backgroundColor: 'rgba(2, 4, 10, 0.95)', padding: '40px', border: '1px solid #00f0ff', borderRadius: '10px', pointerEvents: 'auto', zIndex: 100000, boxShadow: '0 0 60px rgba(0, 240, 255, 0.3)' }}>
             <h2 style={{ color: '#ff4757', marginBottom: '20px', fontSize: '40px', textShadow: '0 0 20px #ff4757' }}>SYSTEM CALIBRATION COMPLETE</h2>
             <p style={{ color: '#00f0ff', fontSize: '24px', marginBottom: '30px' }}>FINAL SCORE: {score}</p>
             <button onClick={onExit} style={{ background: 'transparent', border: '1px solid #00f0ff', color: '#00f0ff', padding: '10px 20px', fontSize: '18px', cursor: 'pointer', transition: 'all 0.3s' }} onPointerOver={(e) => (e.currentTarget.style.background = 'rgba(0, 240, 255, 0.2)')} onPointerOut={(e) => (e.currentTarget.style.background = 'transparent')}>

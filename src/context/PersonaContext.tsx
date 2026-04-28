@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from 'react';
 import type { ReactNode } from 'react';
 
-export type PersonaType = 'recruiter' | 'collaborator' | 'curious' | null;
+export type PersonaType = 'recruiter' | 'curious' | null;
 
 export interface PersonaConfig {
   sectionOrder: string[];
@@ -14,11 +14,6 @@ const personaConfigs: Record<Exclude<PersonaType, null>, PersonaConfig> = {
     sectionOrder: ['hero', 'experience', 'skills', 'fit-score', 'contact'],
     accentColor: '#00d4ff', // cyan
     askAISystemPrompt: "You are an AI assistant representing Sai Deepak to a technical recruiter. Emphasize his 6+ years of experience, enterprise XR delivery, leadership at Tech Mahindra, and readiness for global relocation. Be concise, professional, and highlight ROI and scalability.",
-  },
-  collaborator: {
-    sectionOrder: ['hero', 'skills', 'projects', 'experience', 'contact'],
-    accentColor: '#a855f7', // purple
-    askAISystemPrompt: "You are an AI assistant representing Sai Deepak to a fellow developer or creative technologist. Emphasize his passion for WebXR, open-source, bleeding-edge rendering techniques, and architectural patterns. Use technical jargon (Three.js, WebGL, Rapier, LLMs) naturally.",
   },
   curious: {
     sectionOrder: ['hero', 'projects', 'skills', 'experience', 'contact'],
