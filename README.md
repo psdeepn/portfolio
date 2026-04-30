@@ -73,8 +73,8 @@ Blender / Photoshop / Premiere Pro
 
 ## 🤝 Let's Connect
 
-* 💼 LinkedIn: [(Sai Deepak - LinkedIn)](https://www.linkedin.com/in/psdeepn/)
-* 🌐 Portfolio: [(Sai Deepak - Portfolio)](psdeepn.github.io/portfolio/)
+* 💼 LinkedIn: https://www.linkedin.com/in/psdeepn/
+* 🌐 Portfolio: https://psdeepn.github.io/portfolio/
 * 📧 Email: psdeepn@outlook.com
 
 ---
